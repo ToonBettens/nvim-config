@@ -1,0 +1,13 @@
+
+- Switch to built-in package manager (vim.pack) once neovim v0.12 releases properly
+- Switch to built-in completion engine once it stabily releases
+
+- Swap mini.start for snack.dashboard
+- Create colorscheme and toggle pickers
+
+- AI integration: CodeCompanion & VectorCode (context)
+- Terminals in neovim
+- Figure out proper git flow
+- Figure out how to do neovim terminals
+
+- minimal branch on `cfg` to hold no-internet config (no LSP, no fancy completion, no LLM, ...)
