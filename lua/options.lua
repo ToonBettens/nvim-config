@@ -6,6 +6,7 @@ vim.cmd.filetype('plugin indent on') -- Enable all filetype plugins
 --  ( Buffers & Persistance ) ==================================================
 vim.opt.switchbuf      = 'usetab'   -- Use already opened buffers when switching
 vim.opt.undofile       = true       -- Enable persistent undo
+vim.opt.undolevels     = 1000       -- Undo history
 vim.opt.backup         = false      -- Don't store backup
 vim.opt.writebackup    = false      -- Don't store backup (2)
 

@@ -3,6 +3,7 @@ local MiniDeps = require('mini.deps')
 MiniDeps.later(function()
   local MiniFiles = require('mini.files')
   local MiniPick = require('mini.pick')
+  local MiniSessions = require('mini.sessions')
   local MiniTrailspace = require('mini.trailspace')
   local MiniMisc = require('mini.misc')
   local MiniClue = require('mini.clue')
@@ -84,6 +85,12 @@ MiniDeps.later(function()
     set = function(state) vim.g.cmp_disable = not state end,
   }):map('<leader>yc')
 
+  Snacks.toggle({
+    name = 'Markdown Rendering',
+    get = function() return require('render-markdown').get() end,
+    set = function(state) require('render-markdown').set(state) end,
+  }):map('<leader>ym')
+
 
   --  ( Explore ) ================================================================
   vim.keymap.set(
@@ -105,6 +112,12 @@ MiniDeps.later(function()
   vim.keymap.set('n', '<leader>ep', function() MiniPick.registry.projects() end,                     { desc = 'Explore Projects' })
 
 
+  --  ( Sessions ) ===============================================================
+  vim.keymap.set('n', '<leader>ss', function() require('util.sessions').start_session() end,         { desc = 'Start Session' })
+  vim.keymap.set('n', '<leader>sp', function() MiniSessions.select() end,                            { desc = 'Pick Session' })
+  vim.keymap.set('n', '<leader>sd', function() require('util.sessions').delete_session_picker() end, { desc = 'Pick Session' })
+
+
   --  ( Pick ) ===================================================================
   vim.keymap.set('n', '<leader>p/', function() MiniPick.registry.history({scope='/'}) end,           { desc = '"/" history' })
   vim.keymap.set('n', '<leader>p:', function() MiniPick.registry.history({scope=":"}) end,           { desc = '":" history' })
@@ -116,7 +129,7 @@ MiniDeps.later(function()
   vim.keymap.set('n', '<leader>ph', function() MiniPick.registry.help() end,                         { desc = 'Help tags' })
   vim.keymap.set('n', '<leader>pH', function() MiniPick.registry.hl_groups() end,                    { desc = 'Highlight groups' })
   vim.keymap.set('n', '<leader>pr', function() MiniPick.registry.resume() end,                       { desc = 'Resume' })
-  -- vim.keymap.set('n', '<leader>pp', function() MiniPick.registry.projects() end,                            { desc = 'Projects' })  -- TODO: nested pickers
+  vim.keymap.set('n', '<leader>ps', function() MiniSessions.select() end,                            { desc = 'Session' })
 
 
   --  ( LSP/Diagnostics ) ========================================================
@@ -197,7 +210,7 @@ MiniDeps.later(function()
         { mode = 'n', keys = '<leader>y', desc = '+Toggle' },
         { mode = 'n', keys = '<leader>yo', desc = '+Options' },
         { mode = 'n', keys = '<leader>e', desc = '+Explore' },
-        { mode = 'n', keys = '<leader>p', desc = '+Explore' },
+        { mode = 'n', keys = '<leader>p', desc = '+Pick' },
         { mode = 'n', keys = '<leader>l', desc = '+LSP' },
         { mode = 'n', keys = '<leader>a', desc = '+AI' },
         { mode = 'n', keys = '<leader>o', desc = '+Other' },

@@ -252,6 +252,8 @@ MiniDeps.now(function()
       delete_word = '',
       scroll_down = '<C-d>',
       scroll_up = '<C-u>',
+      mark = '<C-x>',
+      mark_all = '<C-a>',
     },
     window = {
       config = function()
@@ -266,10 +268,11 @@ MiniDeps.now(function()
     },
   })
 
+  -- Set as default picker
   vim.ui.select = MiniPick.ui_select
 
+  -- Project Picker
   local projects_path = vim.fn.expand('~/projects')
-  ---@diagnostic disable-next-line: duplicate-set-field
   MiniPick.registry.projects = function()
     MiniPick.builtin.cli({
       command = { 'fd', '--type', 'd', '--hidden', '--follow', '\\.git$', projects_path },
@@ -317,6 +320,7 @@ MiniDeps.now(function()
     items = {
       starter.sections.recent_files(),
       starter.sections.builtin_actions(),
+      starter.sections.sessions(5),
     },
     header = function()
       local banner = [[

@@ -7,7 +7,7 @@ local installed_langs = {
   'gitignore', 'markdown', 'markdown_inline', 'html',
   'css', 'javascript', 'csv', 'json', 'yaml', 'toml',
   'julia', 'python', 'rust', 'cpp', 'regex', 'verilog',
-  'vhdl', 'powershell'
+  'vhdl', 'powershell', 'latex'
 }
 local highlight_exclude = { }
 local indent_exclude = { 'lua', 'vim', 'vimdoc', 'query', 'markdown', 'markdown_inline' }

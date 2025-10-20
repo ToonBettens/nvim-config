@@ -13,7 +13,7 @@ end
 MiniDeps.later(function()
   MiniDeps.add({
     source = 'Saghen/blink.cmp',
-    depends = { 'rafamadriz/friendly-snippets' },
+    -- depends = { 'rafamadriz/friendly-snippets' },
     hooks = {
       post_install = build_blink,
       post_checkout = build_blink,

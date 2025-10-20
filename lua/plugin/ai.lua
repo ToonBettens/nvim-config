@@ -19,7 +19,7 @@ MiniDeps.later(function()
     },
     display = {
       action_palette = { provider = 'default' },
-      chat = { show_settings = true }
+      -- chat = { show_settings = true }
     },
   })
 end)

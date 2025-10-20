@@ -9,11 +9,9 @@ MiniDeps.later(function()
   })
 
   MiniDeps.add('williamboman/mason-lspconfig.nvim')
-  require('mason-lspconfig').setup({
-    automatic_enable = { exclude = { 'julials' }}
-  })
+  require('mason-lspconfig').setup({ automatic_enable = false })
 
-  MiniDeps.add('folke/lazydev.nvim')
+  MiniDeps.add('folke/lazydev.nvim')  -- Julia language server support for neovim configs
   require('lazydev').setup({
     library = {
       { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
@@ -21,19 +19,11 @@ MiniDeps.later(function()
     },
   })
 
-  -- ( Julia ) =================================================================
+  -- Enabled language servers
+  vim.lsp.enable('lua_ls')
+  vim.lsp.enable('ruff')
+  vim.lsp.enable('pyrefly')
+  -- vim.lsp.enable('basedpyright')
   vim.lsp.enable('julials')
-
-  -- vim.lsp.config('jetls', {
-  --   cmd = {
-  --     'julia', '+1.12',
-  --     '--startup-file=no',
-  --     '--history-file=no',
-  --     '--project=/path/to/JETLS.jl',
-  --     '/path/to/JETLS.jl/runserver.jl',
-  --   },
-  --   filetypes = {'julia'},
-  -- })
-  -- vim.lsp.enable('jetls')
 
 end)
