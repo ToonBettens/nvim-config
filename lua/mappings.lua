@@ -7,7 +7,6 @@ MiniDeps.later(function()
   local MiniTrailspace = require('mini.trailspace')
   local MiniMisc = require('mini.misc')
   local MiniClue = require('mini.clue')
-  local CC = require('codecompanion')
 
   --  ( Default Neovim ) =========================================================
 
@@ -144,13 +143,6 @@ MiniDeps.later(function()
   vim.keymap.set('n', '<leader>ls', function() vim.lsp.buf.definition() end,                         { desc = 'Source definition' })
 
 
-  --  ( AI ) =====================================================================
-  vim.cmd('cab CC CodeCompanion')
-  vim.keymap.set({ 'n', 'v' }, '<leader>aa', function() CC.actions({}) end, { desc = 'Action Palette' } )
-  vim.keymap.set({ 'n', 'v' }, '<leader>ac', function() CC.toggle() end, { desc = 'Toggle Chat' })
-  vim.keymap.set('v', '<leader>as', function() CC.chat({fargs = { 'Add' }}) end, { desc = 'Send Selection to Chat' })
-
-
   --  ( Other ) ==================================================================
   vim.keymap.set('n', '<leader>ot', function() MiniTrailspace.trim() MiniTrailspace.trim_last_lines() end, { desc = 'Trim file' })
   vim.keymap.set('n', '<leader>oz', function() MiniMisc.zoom() end, { desc = 'Zoom' })
@@ -212,7 +204,6 @@ MiniDeps.later(function()
         { mode = 'n', keys = '<leader>e', desc = '+Explore' },
         { mode = 'n', keys = '<leader>p', desc = '+Pick' },
         { mode = 'n', keys = '<leader>l', desc = '+LSP' },
-        { mode = 'n', keys = '<leader>a', desc = '+AI' },
         { mode = 'n', keys = '<leader>o', desc = '+Other' },
       },
     },

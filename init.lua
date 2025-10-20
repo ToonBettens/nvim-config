@@ -15,7 +15,9 @@ if not vim.uv.fs_stat(mini_path) then
 end
 
 -- Set up 'mini.deps' immediately to have its `now()` and `later()` helpers
-require('mini.deps').setup()
+require('mini.deps').setup({
+  path = { package = vim.fn.stdpath('config') .. '/deps' }
+})
 
 -- Source configuration files
 require('options')
@@ -27,5 +29,4 @@ require('plugin.notify')
 require('plugin.lsp')
 require('plugin.markdown')
 require('plugin.cmp')
-require('plugin.ai')
 require('mappings')
