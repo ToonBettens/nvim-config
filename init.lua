@@ -1,7 +1,12 @@
--- Bootstrap 'mini.nvim'
-local package_path = vim.fn.stdpath('config') .. '/pkg'
-local mini_path = package_path .. '/pack/deps/start/mini.nvim'
+-- global helper
+H = {}
 
+-- Path to put local configuration dependencies to package to remote
+local site_path = vim.fn.stdpath('config') .. '/pkg'
+H.site_path = site_path
+
+-- Bootstrap 'mini.nvim'
+local mini_path = site_path .. '/pack/deps/start/mini.nvim'
 if not vim.uv.fs_stat(mini_path) then
   vim.cmd.echo('"Installing mini.nvim"')
   local clone_cmd = {'git', 'clone', '--filter=blob:none', 'https://github.com/nvim-mini/mini.nvim', mini_path}
@@ -11,13 +16,11 @@ if not vim.uv.fs_stat(mini_path) then
   vim.cmd.echo('"Installed `mini.nvim`"')
   vim.cmd.redraw()
 end
-
--- Ensure mini.nvim is loaded from your packaging directory
-vim.opt.rtp:prepend(mini_path)
+vim.opt.rtp:prepend(mini_path)  -- Ensure mini.nvim is loaded from packaging directory
 
 -- Set up 'mini.deps' first
 require('mini.deps').setup({
-  path = { package = package_path }  -- location for packaging
+  path = { package = site_path }  -- location for packaging
 })
 
 -- Source configuration files

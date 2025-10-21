@@ -6,7 +6,7 @@ local installed_langs = {
   'c', 'vim', 'vimdoc', 'lua', 'query', 'bash', 'tcl',
   'gitignore', 'markdown', 'markdown_inline', 'html',
   'css', 'javascript', 'csv', 'json', 'yaml', 'toml',
-  'julia', 'python', 'rust', 'cpp', 'regex', 'verilog',
+  'julia', 'python', 'rust', 'cpp', 'regex', 'systemverilog',
   'vhdl', 'powershell', 'latex'
 }
 local highlight_exclude = { }
@@ -25,6 +25,10 @@ MiniDeps.now(function()
     checkout = 'main',
   })
 
+  require('nvim-treesitter').setup({
+    install_dir = H.site_path
+  })
+  vim.opt.rtp:prepend(H.site_path)  -- Ensure mini.nvim is loaded from packaging directory
 
   local highlight_set = c.as_set(c.filter(installed_langs, function(lang)
     return not c.in_set(lang, c.as_set(highlight_exclude))
@@ -35,12 +39,7 @@ MiniDeps.now(function()
   end))
 
   -- Install missing parsers
-  local to_install = c.filter(installed_langs, function(lang)
-    return #vim.api.nvim_get_runtime_file('parser/' .. lang .. '.*', false) == 0
-  end)
-  if #to_install > 0 then
-    require('nvim-treesitter').install(to_install)
-  end
+  require('nvim-treesitter').install(installed_langs)
 
   -- Setup per-buffer Treesitter features
   vim.api.nvim_create_autocmd('FileType', {
