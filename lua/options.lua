@@ -34,6 +34,19 @@ if is_wsl() then
     },
     cache_enabled = true,
   }
+elseif vim.fn.executable("xclip") == 1 then
+  vim.g.clipboard = {
+    name = 'xclip-clipboard',
+    copy = {
+      ['+'] = 'xclip -selection clipboard',
+      ['*'] = 'xclip -selection primary',
+    },
+    paste = {
+      ['+'] = 'xclip -selection clipboard -o',
+      ['*'] = 'xclip -selection primary -o',
+    },
+    cache_enabled = true,
+  }
 end
 
 
