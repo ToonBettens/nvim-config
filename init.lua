@@ -1,22 +1,23 @@
 -- Bootstrap 'mini.nvim'
-local path_package = vim.fn.stdpath('data') .. '/site'
-local mini_path = path_package .. '/pack/deps/start/mini.nvim'
+local package_path = vim.fn.stdpath('config') .. '/pkg'
+local mini_path = package_path .. '/pack/deps/start/mini.nvim'
+
 if not vim.uv.fs_stat(mini_path) then
-  vim.cmd.echo('"Installing `mini.nvim`" | redraw"')
-  local clone_cmd = {
-    'git', 'clone', '--filter=blob:none',
-    -- Uncomment next line to use "stable" branch
-    -- '--branch', 'stable',
-    'https://github.com/nvim-mini/mini.nvim', mini_path
-  }
+  vim.cmd.echo('"Installing mini.nvim"')
+  local clone_cmd = {'git', 'clone', '--filter=blob:none', 'https://github.com/nvim-mini/mini.nvim', mini_path}
   vim.fn.system(clone_cmd)
-  vim.cmd.packadd('"mini.nvim | helptags ALL"')
-  vim.cmd.echo('"Installed `mini.nvim`" | redraw"')
+  vim.cmd.packadd('mini.nvim')
+  vim.cmd.helptags('ALL')
+  vim.cmd.echo('"Installed `mini.nvim`"')
+  vim.cmd.redraw()
 end
 
--- Set up 'mini.deps' immediately to have its `now()` and `later()` helpers
+-- Ensure mini.nvim is loaded from your packaging directory
+vim.opt.rtp:prepend(package_path .. '/pack/deps/start/mini.nvim')
+
+-- Set up 'mini.deps' first
 require('mini.deps').setup({
-  path = { package = vim.fn.stdpath('config') .. '/deps' }
+  path = { package = package_path }  -- location for packaging
 })
 
 -- Source configuration files
@@ -28,5 +29,9 @@ require('plugin.mini')
 require('plugin.notify')
 require('plugin.lsp')
 require('plugin.markdown')
-require('plugin.cmp')
 require('mappings')
+
+-- MiniDeps lazy-loading finished hook
+require('mini.deps').later(function()
+  vim.cmd.doautocmd('User MiniDepsAllLaterLoaded')
+end)
