@@ -13,7 +13,7 @@ if not vim.uv.fs_stat(mini_path) then
 end
 
 -- Ensure mini.nvim is loaded from your packaging directory
-vim.opt.rtp:prepend(package_path .. '/pack/deps/start/mini.nvim')
+vim.opt.rtp:prepend(mini_path)
 
 -- Set up 'mini.deps' first
 require('mini.deps').setup({
